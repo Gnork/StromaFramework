@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>edbbb2a4-33d9-4e2e-9eca-c3cf65905488</ProjectGuid>
+    <ProjectGuid>{6912B674-B098-4B26-A242-73B187EC7F1E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StromaDetectionRBM</RootNamespace>
@@ -32,8 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\packages\MathNet.Numerics.3.2.3\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,11 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBatchGenerator.cs" />
+    <Compile Include="ImageHelper.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramTraining.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomBatchGenerator.cs" />
+    <Compile Include="RBM.cs" />
+    <Compile Include="RBMTrainer.cs" />
+    <Compile Include="WeightsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
