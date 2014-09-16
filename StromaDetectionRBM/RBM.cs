@@ -72,6 +72,11 @@ namespace StromaDetectionRBM
             return visible;
         }
 
+        public Matrix<float> getWeights()
+        {
+            return this.weights;
+        }
+
         private float error(Matrix<float> data, Matrix<float> hidden, Matrix<float> visible)
         {
             // calculate normalized mean squared error
