@@ -27,7 +27,7 @@ namespace StromaDetectionRBM
                     Console.WriteLine(rbmName + ": " + error);
 
                     thread.Join();
-                    Matrix<float> nextInput = input.getInput();
+                    currentInput = input.getInput();
                 }
 
                 Matrix<float> weights = rbm.getWeights();

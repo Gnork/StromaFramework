@@ -23,7 +23,7 @@ namespace StromaDetectionRBM
             Random random = new Random();
 
             int rbm0Visible = patchWidth * patchHeight * 3 + 1;
-            int rbm0Hidden = 200;
+            int rbm0Hidden = 350;
 
             IBatchGenerator generator = new RandomBatchGenerator(positiveSamplesPath, negativeSamplesPath);
             Matrix<float> rbm0Weights = WeightsHelper.generateWeights(rbm0Visible, rbm0Hidden, random);

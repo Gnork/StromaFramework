@@ -34,7 +34,8 @@ namespace StromaDetectionRBM
             // negative associations
             Matrix<float> negativeAssociations = visible.TransposeThisAndMultiply(hidden);
             // update weights
-            this.weights.Add(positiveAssociations.Subtract(negativeAssociations).Multiply(learningRate / data.RowCount));
+            Matrix<float> diff = positiveAssociations.Subtract(negativeAssociations).Multiply(learningRate / data.RowCount);
+            this.weights.Add(diff, this.weights);
 
             return error(data, hidden, visible);
         }
@@ -49,7 +50,7 @@ namespace StromaDetectionRBM
 
         public Matrix<float> getHidden(Matrix<float> data)
         {
-            return getHidden(data, identity);
+            return getHidden(data, this.binarizeHidden);
         }
 
         private Matrix<float> getHidden(Matrix<float> data, Func<float, float> f)

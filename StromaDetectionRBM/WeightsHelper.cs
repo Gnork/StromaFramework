@@ -18,7 +18,7 @@ namespace StromaDetectionRBM
 
         public static void saveWeights(Matrix<float> weights, String filePath)
         {
-            throw new NotImplementedException();
+            ;
         }
 
         public static Matrix<float> generateWeights(int rows, int columns, Random random)
