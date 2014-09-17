@@ -13,10 +13,10 @@ namespace StromaDetectionRBM
         {
             String positiveSamplesPath = "D:\\StromaSet\\S-114-HE\\stroma";
             String negativeSamplesPath = "D:\\StromaSet\\S-114-HE\\not-stroma";
-            String rbm0WeightsPath = "D:\\StromaSet\\weights\\RBM0_769_350_0,09807873.weights";
+            //String rbm0WeightsPath = "D:\\StromaSet\\weights\\RBM0_769_350_0,09807873.weights";
             String rbm0SavePath = "D:\\StromaSet\\weights";
 
-            int batchSize = 100;
+            int batchSize = 1000;
             int patchWidth = 16;
             int patchHeight = 16;
 
@@ -27,13 +27,13 @@ namespace StromaDetectionRBM
 
             IBatchGenerator generator = new RandomBatchGenerator(positiveSamplesPath, negativeSamplesPath);
 
-            //Matrix<float> rbm0Weights = WeightsHelper.generateWeights(rbm0Visible, rbm0Hidden, random);
-            Matrix<float> rbm0Weights = WeightsHelper.loadWeights(rbm0WeightsPath);
+            Matrix<float> rbm0Weights = WeightsHelper.generateWeights(rbm0Visible, rbm0Hidden, random);
+            //Matrix<float> rbm0Weights = WeightsHelper.loadWeights(rbm0WeightsPath);
 
-            RBM rbm0 = new RBM(rbm0Weights, false);
+            RBM rbm0 = new RBM(rbm0Weights, true);
             RBMTrainer.IRBMInput rbm0Input = new RBM0Input(generator, batchSize, patchWidth, patchHeight);
 
-            RBMTrainer.trainRBM(rbm0, rbm0Input, 0.001f, 10000, 100, rbm0SavePath, "RBM0", rbm0Visible, rbm0Hidden);
+            RBMTrainer.trainRBM(rbm0, rbm0Input, 0.01f, 10000, 100, rbm0SavePath, "RBM0", rbm0Visible, rbm0Hidden);
         }
 
         private class RBM0Input: RBMTrainer.IRBMInput{
