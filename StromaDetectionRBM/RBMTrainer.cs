@@ -40,6 +40,7 @@ namespace StromaDetectionRBM
                     currentInput = input.getInput();
                 }
 
+                // save best weights from last interval
                 if(minWeights != null)
                 {
                     String outputFile = saveDir + "\\" + rbmName + "_" + visibleLayer + "_" + hiddenLayer + "_" + minError + ".weights";

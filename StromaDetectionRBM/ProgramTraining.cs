@@ -59,6 +59,35 @@ namespace StromaDetectionRBM
             {
                 this.input = generator.nextBatch(batchSize, patchWidth, patchHeight);
             }
-        }   
+        }
+
+        private class RBM1Input : RBMTrainer.IRBMInput
+        {
+            private IBatchGenerator generator;
+
+            private int batchSize, patchWidth, patchHeight;
+            private Matrix<float> input;
+            RBM rbm0;
+
+            public RBM1Input(IBatchGenerator generator, int batchSize, int patchWidth, int patchHeight, RBM rbm0)
+            {
+                this.generator = generator;
+                this.batchSize = batchSize;
+                this.patchHeight = patchWidth;
+                this.patchWidth = patchWidth;
+                this.rbm0 = rbm0;
+            }
+
+            public Matrix<float> getInput()
+            {
+                return input;
+            }
+
+            public void generateInput()
+            {
+                Matrix<float> batch = generator.nextBatch(batchSize, patchWidth, patchHeight);
+                this.input = rbm0.getHidden(batch);
+            }
+        }
     }
 }

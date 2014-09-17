@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>StromaDetectionRBM.ProgramTraining</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MathNet.Numerics">
       <HintPath>..\packages\MathNet.Numerics.3.2.3\lib\net40\MathNet.Numerics.dll</HintPath>
@@ -49,6 +52,7 @@
     <Compile Include="IBatchGenerator.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramReconstruction.cs" />
     <Compile Include="ProgramTraining.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomBatchGenerator.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using MathNet.Numerics.LinearAlgebra;
 
 namespace StromaDetectionRBM
 {
@@ -28,6 +29,7 @@ namespace StromaDetectionRBM
                     result[pos++] = g;
                     result[pos++] = b;
 
+                    // count white pixels
                     if (r > 0.8f && g > 0.8f && b > 0.8f)
                     {
                         //Console.WriteLine(pos + ": " + r + ", " + g + ", " + b);
@@ -36,12 +38,48 @@ namespace StromaDetectionRBM
                 }
             }
 
+            // return null if patch is more than 50% white
             if (whiteCount / (width * height) > 0.5)
             {
                 return null;
             }
 
             return result;
+        }
+
+        public static void persistPatch(float[] patch, int width, int height, String filePath)
+        {
+            Bitmap image = new Bitmap(width, height);
+
+            int pos = 0;
+
+            for (int y = 0; y < height; ++y)
+            {
+                for (int x = 0; x < width; ++x)
+                {
+                    int r = Math.Max(0, Math.Min(255, (int)(patch[pos++] * 255.0f)));
+                    int g = Math.Max(0, Math.Min(255, (int)(patch[pos++] * 255.0f)));
+                    int b = Math.Max(0, Math.Min(255, (int)(patch[pos++] * 255.0f)));
+
+                    image.SetPixel(x, y, Color.FromArgb(r, g, b));
+                }
+            }
+
+            image.Save(filePath);
+        }
+
+        public static void persistOriginalAndReconstruction(int width, int height, Matrix<float> original, Matrix<float> reconstruction, String dirPath)
+        {
+            Matrix<float> originalCropped = original.RemoveColumn(0);
+            Matrix<float> reconstructionCropped = reconstruction.RemoveColumn(0);
+
+            for (int row = 0; row < original.RowCount; ++row)
+            {
+                String originalOutput = dirPath + "\\" + row + "_original.png";
+                String reconstructionOutput = dirPath + "\\" + row + "_reconstruction.png";
+                persistPatch(originalCropped.Row(row).ToArray(), width, height, originalOutput);
+                persistPatch(reconstructionCropped.Row(row).ToArray(), width, height, reconstructionOutput);
+            }
         }
     }
 }
