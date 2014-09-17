@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MathNet.Numerics.LinearAlgebra;
-using MathNet.Numerics.LinearAlgebra.Complex32;
 using MathNet.Numerics.Distributions;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace StromaDetectionRBM
 {
@@ -13,12 +14,19 @@ namespace StromaDetectionRBM
     {
         public static Matrix<float> loadWeights(String filePath)
         {
-            throw new NotImplementedException();
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+            Matrix<float> weights = (Matrix<float>) formatter.Deserialize(fileStream);
+            fileStream.Close();
+            return weights;
         }
 
         public static void saveWeights(Matrix<float> weights, String filePath)
         {
-            ;
+            FileStream fileStream = new FileStream(filePath, FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(fileStream, weights);
+            fileStream.Close();
         }
 
         public static Matrix<float> generateWeights(int rows, int columns, Random random)
