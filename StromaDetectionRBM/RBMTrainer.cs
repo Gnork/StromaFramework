@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MathNet.Numerics.LinearAlgebra;
+using System.Threading;
 
 namespace StromaDetectionRBM
 {
@@ -11,13 +12,22 @@ namespace StromaDetectionRBM
     {
         public static void trainRBM(RBM rbm, IRBMInput input, float learningRate, int epochs, int saveInterval, String saveDir, String rbmName)
         {
+            input.generateInput();
+            Matrix<float> currentInput = input.getInput();
+
             int repeat = epochs / saveInterval;
             for (int i = 0; i < repeat; ++i)
             {
                 for (int j = 0; j < saveInterval; ++j)
                 {
-                    float error = rbm.train(input.generateInput(), learningRate);
+                    Thread thread = new Thread(input.generateInput);
+                    thread.Start();
+
+                    float error = rbm.train(currentInput, learningRate);
                     Console.WriteLine(rbmName + ": " + error);
+
+                    thread.Join();
+                    Matrix<float> nextInput = input.getInput();
                 }
 
                 Matrix<float> weights = rbm.getWeights();
@@ -28,7 +38,8 @@ namespace StromaDetectionRBM
 
         public interface IRBMInput
         {
-            public Matrix<float> generateInput();
+            void generateInput();
+            Matrix<float> getInput();
         }
     }
 }

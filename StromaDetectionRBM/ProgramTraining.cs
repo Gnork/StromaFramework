@@ -11,10 +11,10 @@ namespace StromaDetectionRBM
     {
         static void Main(string[] args)
         {
-            String positiveSamplesPath = "";
-            String negativeSamplesPath = "";
-            String rbm0WeightsPath = "";
-            String rbm0SavePath = "";
+            String positiveSamplesPath = "D:\\StromaSet\\S-114-HE\\stroma";
+            String negativeSamplesPath = "D:\\StromaSet\\S-114-HE\\not-stroma";
+            //String rbm0WeightsPath = "";
+            String rbm0SavePath = "D:\\StromaSet\\weights";
 
             int batchSize = 100;
             int patchWidth = 16;
@@ -22,8 +22,11 @@ namespace StromaDetectionRBM
 
             Random random = new Random();
 
+            int rbm0Visible = patchWidth * patchHeight * 3 + 1;
+            int rbm0Hidden = 200;
+
             IBatchGenerator generator = new RandomBatchGenerator(positiveSamplesPath, negativeSamplesPath);
-            Matrix<float> rbm0Weights = WeightsHelper.generateWeights(random);
+            Matrix<float> rbm0Weights = WeightsHelper.generateWeights(rbm0Visible, rbm0Hidden, random);
             RBM rbm0 = new RBM(rbm0Weights, false);
             RBMTrainer.IRBMInput rbm0Input = new RBM0Input(generator, batchSize, patchWidth, patchHeight);
 
@@ -34,6 +37,7 @@ namespace StromaDetectionRBM
             private IBatchGenerator generator;
 
             private int batchSize, patchWidth, patchHeight;
+            private Matrix<float> input = null;
 
             public RBM0Input(IBatchGenerator generator, int batchSize, int patchWidth, int patchHeight)
             {
@@ -43,9 +47,14 @@ namespace StromaDetectionRBM
                 this.patchWidth = patchWidth;
             }
 
-            public Matrix<float> generateInput()
+            public Matrix<float> getInput()
             {
-                return generator.nextBatch(batchSize, patchWidth, patchHeight);
+                return input;
+            }
+
+            public void generateInput()
+            {
+                this.input = generator.nextBatch(batchSize, patchWidth, patchHeight);
             }
         }   
     }

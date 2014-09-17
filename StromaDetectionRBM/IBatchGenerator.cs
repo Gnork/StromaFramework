@@ -9,6 +9,6 @@ namespace StromaDetectionRBM
 {
     interface IBatchGenerator
     {
-        public Matrix<float> nextBatch(int batchSize, int patchWidth, int patchHeight);
+        Matrix<float> nextBatch(int batchSize, int patchWidth, int patchHeight);
     }
 }

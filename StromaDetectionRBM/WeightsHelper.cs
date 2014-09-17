@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Complex32;
+using MathNet.Numerics.Distributions;
 
 namespace StromaDetectionRBM
 {
@@ -19,9 +21,9 @@ namespace StromaDetectionRBM
             throw new NotImplementedException();
         }
 
-        public static Matrix<float> generateWeights(Random random)
+        public static Matrix<float> generateWeights(int rows, int columns, Random random)
         {
-            throw new NotImplementedException();
+            return Matrix<float>.Build.Random(rows, columns, new Normal(0.5, 0.1, random));
         }
     }
 }

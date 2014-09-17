@@ -33,7 +33,8 @@ namespace StromaDetectionRBM
             int numOfPositive = batchSize / 2;
             int numOfNegative = batchSize - numOfPositive;
 
-            Matrix<float> batch = Matrix<float>.Build.Dense(batchSize, patchWidth * patchHeight);
+            Matrix<float> batch = Matrix<float>.Build.Dense(batchSize, patchWidth * patchHeight * 3 + 1);
+            Vector<float> ones = Vector<float>.Build.Dense(batchSize, 1.0f);
 
             for (int i = 0; i < numOfPositive; ++i)
             {
@@ -42,6 +43,11 @@ namespace StromaDetectionRBM
                 int x = random.Next(0, image.Width - patchWidth);
                 int y = random.Next(0, image.Height - patchHeight);
                 float[] patchPixels = ImageHelper.generatePatch(image, x, y, patchWidth, patchHeight);
+                if (patchPixels == null)
+                {
+                    --i;
+                    continue;
+                }
                 batch.SetRow(i, patchPixels);
             }
 
@@ -52,6 +58,11 @@ namespace StromaDetectionRBM
                 int x = random.Next(0, image.Width - patchWidth);
                 int y = random.Next(0, image.Height - patchHeight);
                 float[] patchPixels = ImageHelper.generatePatch(image, x, y, patchWidth, patchHeight);
+                if (patchPixels == null)
+                {
+                    --i;
+                    continue;
+                }
                 batch.SetRow(i, patchPixels);
             }
 
