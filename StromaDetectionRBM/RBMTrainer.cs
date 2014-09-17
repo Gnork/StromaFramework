@@ -42,7 +42,7 @@ namespace StromaDetectionRBM
 
                 if(minWeights != null)
                 {
-                    String outputFile = saveDir + "\\" + rbmName + "_" + visibleLayer + "_" + hiddenLayer + "_" + error + ".weights";
+                    String outputFile = saveDir + "\\" + rbmName + "_" + visibleLayer + "_" + hiddenLayer + "_" + minError + ".weights";
                     WeightsHelper.saveWeights(minWeights, outputFile);
                     minWeights = null;
                     Console.WriteLine("weights saved");
