@@ -31,7 +31,7 @@ namespace StromaDetectionRBM
 
         public static Matrix<float> generateWeights(int rows, int columns, Random random)
         {
-            return Matrix<float>.Build.Random(rows, columns, new Normal(0.5, 0.1, random));
+            return Matrix<float>.Build.Random(rows, columns, new Normal(0.0, 0.1, random));
         }
     }
 }

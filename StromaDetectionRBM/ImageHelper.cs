@@ -47,6 +47,46 @@ namespace StromaDetectionRBM
             return result;
         }
 
+        public static float[] generateScaledPatch(Bitmap image, int scaleWidth, int scaleHeight)
+        {
+            float[] result = new float[scaleWidth * scaleHeight * 3 + 1];
+
+            int whiteCount = 0;
+            int pos = 0;
+            result[pos++] = 1.0f;
+
+            Bitmap scaledImage = new Bitmap(image, new Size(scaleWidth, scaleHeight));
+
+            for (int yPos = 0; yPos < scaleHeight; ++yPos)
+            {
+                for (int xPos = 0; xPos < scaleWidth; ++xPos)
+                {
+                    Color c = scaledImage.GetPixel(xPos, yPos);
+                    float r = c.R / 255.0f;
+                    float g = c.G / 255.0f;
+                    float b = c.B / 255.0f;
+                    result[pos++] = r;
+                    result[pos++] = g;
+                    result[pos++] = b;
+
+                    // count white pixels
+                    if (r > 0.8f && g > 0.8f && b > 0.8f)
+                    {
+                        //Console.WriteLine(pos + ": " + r + ", " + g + ", " + b);
+                        whiteCount++;
+                    }
+                }
+            }
+
+            // return null if patch is more than 50% white
+            if (whiteCount / (scaleWidth * scaleHeight) > 0.5)
+            {
+                return null;
+            }
+
+            return result;
+        }
+
         public static void persistPatch(float[] patch, int width, int height, String filePath)
         {
             Bitmap image = new Bitmap(width, height);

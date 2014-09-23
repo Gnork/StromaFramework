@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StromaFramework", "StromaFr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StromaDetectionRBM", "StromaDetectionRBM\StromaDetectionRBM.csproj", "{6912B674-B098-4B26-A242-73B187EC7F1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSFDecoder", "VSFDecoder\VSFDecoder.csproj", "{96AFC717-603A-419B-B654-DDD6EF30BA47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,16 @@ Global
 		{6912B674-B098-4B26-A242-73B187EC7F1E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6912B674-B098-4B26-A242-73B187EC7F1E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6912B674-B098-4B26-A242-73B187EC7F1E}.Release|x64.ActiveCfg = Release|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{96AFC717-603A-419B-B654-DDD6EF30BA47}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

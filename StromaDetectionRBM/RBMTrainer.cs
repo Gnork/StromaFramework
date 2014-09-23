@@ -10,7 +10,7 @@ namespace StromaDetectionRBM
 {
     class RBMTrainer
     {
-        public static void trainRBM(RBM rbm, IRBMInput input, float learningRate, int epochs, int saveInterval, String saveDir, String rbmName, int visibleLayer, int hiddenLayer)
+        public static void trainRBM(RBM rbm, IRBMInput input, float learningRate, int epochs, int saveInterval, String saveDir, String trainingName, int visibleLayer, int hiddenLayer)
         {
             input.generateInput();
             Matrix<float> currentInput = input.getInput();
@@ -28,7 +28,7 @@ namespace StromaDetectionRBM
                     thread.Start();
 
                     error = rbm.train(currentInput, learningRate);
-                    Console.WriteLine(rbmName + "; Epoche: " + (i * saveInterval + j) +  "; Error: " + error);
+                    Console.WriteLine(trainingName + "; Epoche: " + (i * saveInterval + j) +  "; Error: " + error);
 
                     if (error < minError)
                     {
@@ -41,14 +41,24 @@ namespace StromaDetectionRBM
                 }
 
                 // save best weights from last interval
-                if(minWeights != null)
-                {
-                    String outputFile = saveDir + "\\" + rbmName + "_" + visibleLayer + "_" + hiddenLayer + "_" + minError + ".weights";
-                    WeightsHelper.saveWeights(minWeights, outputFile);
-                    minWeights = null;
-                    Console.WriteLine("weights saved");
-                }         
+                String outputFile = saveDir + "\\" + trainingName + "_" + visibleLayer + "_" + hiddenLayer + "_" + i + "_" + minError + ".weights";
+                WeightsHelper.saveWeights(minWeights, outputFile);
+                minError = float.MaxValue;
+                Console.WriteLine("weights saved");
             }
+        }
+
+        private Matrix<float> avgMatrix(Matrix<float>[] matrices)
+        {
+            Matrix<float> avgMatrix = Matrix<float>.Build.Dense(matrices[0].RowCount, matrices[0].RowCount, 0.0f);
+
+            for (int i = 0; i < matrices.Length; ++i)
+            {
+                avgMatrix.Add(matrices[i], avgMatrix);
+            }
+            avgMatrix.Multiply(1.0f / matrices.Length, avgMatrix);
+
+            return avgMatrix;
         }
 
         public interface IRBMInput

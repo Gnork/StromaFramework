@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6912B674-B098-4B26-A242-73B187EC7F1E}</ProjectGuid>
+    <ProjectGuid>{96AFC717-603A-419B-B654-DDD6EF30BA47}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StromaDetectionRBM</RootNamespace>
-    <AssemblyName>StromaDetectionRBM</AssemblyName>
+    <RootNamespace>VSFDecoder</RootNamespace>
+    <AssemblyName>VSFDecoder</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -32,38 +32,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>StromaDetectionRBM.ProgramTraining</StartupObject>
+    <StartupObject>VSFDecoder.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Numerics">
-      <HintPath>..\packages\MathNet.Numerics.3.2.3\lib\net40\MathNet.Numerics.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="VMscope.InteropCore">
+      <HintPath>..\..\..\..\..\Program Files\VMscope\Virtual Slide Access - SDK 4.0\VMscope.InteropCore.DLL</HintPath>
+    </Reference>
+    <Reference Include="VMscope.Resources">
+      <HintPath>..\..\..\..\..\Program Files\VMscope\Virtual Slide Access - SDK 4.0\VMscope.Resources.DLL</HintPath>
+    </Reference>
+    <Reference Include="VMscope.VirtualSlideAccess">
+      <HintPath>..\..\..\..\..\Program Files\VMscope\Virtual Slide Access - SDK 4.0\VMscope.VirtualSlideAccess.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBatchGenerator.cs" />
-    <Compile Include="ImageHelper.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProgramReconstruction.cs" />
-    <Compile Include="ProgramTraining.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomBatchGenerator.cs" />
-    <Compile Include="RBM.cs" />
-    <Compile Include="RBMTrainer.cs" />
-    <Compile Include="ScaleBatchGenerator.cs" />
-    <Compile Include="WeightsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
