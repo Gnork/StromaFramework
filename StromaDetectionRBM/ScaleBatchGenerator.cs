@@ -34,7 +34,9 @@ namespace StromaDetectionRBM
 
             Matrix<float> batch = Matrix<float>.Build.Dense(batchSize, patchWidth * patchHeight * 3 + 1);
 
-            for (int i = 0; i < numOfPositive; ++i)
+            int i = 0;
+
+            for (; i < numOfPositive; ++i)
             {
                 Bitmap image = new Bitmap(positiveSamplesFiles[posCount].FullName);
                 posCount = (posCount + 1) % positiveSamplesFiles.Length;
@@ -47,7 +49,7 @@ namespace StromaDetectionRBM
                 batch.SetRow(i, patchPixels);
             }
 
-            for (int i = numOfPositive; i < batchSize; ++i)
+            for (; i < batchSize; ++i)
             {
                 Bitmap image = new Bitmap(negativeSamplesFiles[negCount].FullName);
                 negCount = (negCount + 1) % negativeSamplesFiles.Length;

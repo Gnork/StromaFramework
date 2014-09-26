@@ -48,17 +48,46 @@ namespace StromaDetectionRBM
             }
         }
 
-        private Matrix<float> avgMatrix(Matrix<float>[] matrices)
+        public static float reconstructionError(Matrix<float> original, Matrix<float> reconstruction)
         {
-            Matrix<float> avgMatrix = Matrix<float>.Build.Dense(matrices[0].RowCount, matrices[0].RowCount, 0.0f);
+            float error = 0.0f;
 
-            for (int i = 0; i < matrices.Length; ++i)
+            for (int row = 0; row < original.RowCount; ++row)
             {
-                avgMatrix.Add(matrices[i], avgMatrix);
+                for (int column = 0; column < original.ColumnCount; ++column)
+                {
+                    error += Math.Abs(original.At(row, column) - reconstruction.At(row, column));
+                }
             }
-            avgMatrix.Multiply(1.0f / matrices.Length, avgMatrix);
 
-            return avgMatrix;
+            error /= original.RowCount * original.ColumnCount;
+
+            return error;
+        }
+
+        public static float predictionQuality(Matrix<float> matrix)
+        {
+            int batchSize = matrix.RowCount;
+            int numOfPositive = batchSize / 2;
+
+            int corretClassified = 0;
+            int cc = matrix.ColumnCount - 1;
+
+            int i = 0;
+
+            for (; i < numOfPositive; ++i)
+            {
+                if (matrix.At(i, cc) > 0.5f) ++corretClassified;
+                Console.WriteLine("label " + i + ": " + matrix.At(i, cc));
+            }
+
+            for (; i < batchSize; ++i)
+            {
+                if (matrix.At(i, cc) < 0.5f) ++corretClassified;
+                Console.WriteLine("label " + i + ": " + matrix.At(i, cc));
+            }
+
+            return (float)(corretClassified) / (float)(batchSize);
         }
 
         public interface IRBMInput

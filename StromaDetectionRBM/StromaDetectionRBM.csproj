@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>StromaDetectionRBM.ProgramTraining</StartupObject>
+    <StartupObject>StromaDetectionRBM.ProgramReconstruction</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MathNet.Numerics">
@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="IBatchGenerator.cs" />
     <Compile Include="ImageHelper.cs" />
+    <Compile Include="MatrixHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramReconstruction.cs" />
     <Compile Include="ProgramTraining.cs" />
