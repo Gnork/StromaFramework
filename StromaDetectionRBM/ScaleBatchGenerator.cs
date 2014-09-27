@@ -31,6 +31,7 @@ namespace StromaDetectionRBM
         public Matrix<float> nextBatch(int batchSize, int patchWidth, int patchHeight)
         {
             int numOfPositive = batchSize / 2;
+            float whiteThreshold = 0.5f;
 
             Matrix<float> batch = Matrix<float>.Build.Dense(batchSize, patchWidth * patchHeight * 3 + 1);
 
@@ -40,7 +41,7 @@ namespace StromaDetectionRBM
             {
                 Bitmap image = new Bitmap(positiveSamplesFiles[posCount].FullName);
                 posCount = (posCount + 1) % positiveSamplesFiles.Length;
-                float[] patchPixels = ImageHelper.generateScaledPatch(image, patchWidth, patchHeight);
+                float[] patchPixels = ImageHelper.generateScaledPatch(image, patchWidth, patchHeight, whiteThreshold);
                 if (patchPixels == null)
                 {
                     --i;
@@ -53,7 +54,7 @@ namespace StromaDetectionRBM
             {
                 Bitmap image = new Bitmap(negativeSamplesFiles[negCount].FullName);
                 negCount = (negCount + 1) % negativeSamplesFiles.Length;
-                float[] patchPixels = ImageHelper.generateScaledPatch(image, patchWidth, patchHeight);
+                float[] patchPixels = ImageHelper.generateScaledPatch(image, patchWidth, patchHeight, whiteThreshold);
                 if (patchPixels == null)
                 {
                     --i;

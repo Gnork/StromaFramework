@@ -47,7 +47,7 @@ namespace StromaDetectionRBM
             return result;
         }
 
-        public static float[] generateScaledPatch(Bitmap image, int scaleWidth, int scaleHeight)
+        public static float[] generateScaledPatch(Bitmap image, int scaleWidth, int scaleHeight, float whiteThreshold)
         {
             float[] result = new float[scaleWidth * scaleHeight * 3 + 1];
 
@@ -70,7 +70,7 @@ namespace StromaDetectionRBM
                     result[pos++] = b;
 
                     // count white pixels
-                    if (r > 0.8f && g > 0.8f && b > 0.8f)
+                    if (r > 0.9f && g > 0.9f && b > 0.9f)
                     {
                         //Console.WriteLine(pos + ": " + r + ", " + g + ", " + b);
                         whiteCount++;
@@ -78,11 +78,10 @@ namespace StromaDetectionRBM
                 }
             }
 
-            // return null if patch is more than 50% white
-            if (whiteCount / (scaleWidth * scaleHeight) > 0.5)
-            {
-                return null;
-            }
+            // return null if patch is mostly white
+            Console.WriteLine("WhiteCount: " + whiteCount + ", " + (((float)whiteCount) / (scaleWidth * scaleHeight)));
+
+            if (((float)whiteCount) / (scaleWidth * scaleHeight) > whiteThreshold) return null;
 
             return result;
         }

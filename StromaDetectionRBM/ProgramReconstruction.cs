@@ -17,7 +17,7 @@ namespace StromaDetectionRBM
 
             String rbm0WeightsPath = "D:\\StromaSet\\weights\\RBM0_T1_769_500_139_0,04191353.weights";
             String rbm1WeightsPath = "D:\\StromaSet\\weights\\RBM1_T1_500_75_375_0,07180008.weights";
-            String rbm2WeightsPath = "D:\\StromaSet\\weights\\RBM2_TOP_T2_76_40_5_0,1721749.weights";
+            String rbm2WeightsPath = "D:\\StromaSet\\weights\\RBM2_TOP_T3_76_40_16_0,1688143.weights";
 
             int batchSize = 100;
             int patchWidth = 16;
