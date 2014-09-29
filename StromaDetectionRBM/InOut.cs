@@ -76,9 +76,6 @@ namespace StromaDetectionRBM
             }
 
             String exeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-            String exeRbm0Weigths = exeDir + "/rbm0.weights";
-            String exeRbm1Weigths = exeDir + "/rbm1.weights";
-            String exeRbm2Weigths = exeDir + "/rbm2.weights";
 
             String rbm0WeightsFile = null;
             String rbm1WeightsFile = null;
@@ -91,11 +88,11 @@ namespace StromaDetectionRBM
                 rbm2WeightsFile = args[4];
                 
             }
-            else if (File.Exists(exeRbm0Weigths) && File.Exists(exeRbm1Weigths) && File.Exists(exeRbm2Weigths))
+            else if (File.Exists(exeDir + "/rbm0.weights") && File.Exists(exeDir + "/rbm1.weights") && File.Exists(exeDir + "/rbm2.weights"))
             {
-                rbm0WeightsFile = exeRbm0Weigths;
-                rbm1WeightsFile = exeRbm1Weigths;
-                rbm2WeightsFile = exeRbm2Weigths;
+                rbm0WeightsFile = exeDir + "/rbm0.weights";
+                rbm1WeightsFile = exeDir + "/rbm1.weights";
+                rbm2WeightsFile = exeDir + "/rbm2.weights";
             }
             else if (File.Exists("rbm0.weights") && File.Exists("rbm1.weights") && File.Exists("rbm2.weights"))
             {
