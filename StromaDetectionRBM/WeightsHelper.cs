@@ -14,7 +14,7 @@ namespace StromaDetectionRBM
     {
         public static Matrix<float> loadWeights(String filePath)
         {
-            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            FileStream fileStream = new FileStream(@filePath, FileMode.Open);
             BinaryFormatter formatter = new BinaryFormatter();
             Matrix<float> weights = (Matrix<float>) formatter.Deserialize(fileStream);
             fileStream.Close();
@@ -23,7 +23,7 @@ namespace StromaDetectionRBM
 
         public static void saveWeights(Matrix<float> weights, String filePath)
         {
-            FileStream fileStream = new FileStream(filePath, FileMode.Create);
+            FileStream fileStream = new FileStream(@filePath, FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(fileStream, weights);
             fileStream.Close();

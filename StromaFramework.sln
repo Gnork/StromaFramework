@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StromaFramework", "StromaFramework\StromaFramework.csproj", "{0899CC44-489A-422A-BBA7-9E23F6590803}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StromaDetectionRBM", "StromaDetectionRBM\StromaDetectionRBM.csproj", "{6912B674-B098-4B26-A242-73B187EC7F1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StromaDetection", "StromaDetectionRBM\StromaDetection.csproj", "{6912B674-B098-4B26-A242-73B187EC7F1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSFDecoder", "VSFDecoder\VSFDecoder.csproj", "{96AFC717-603A-419B-B654-DDD6EF30BA47}"
 EndProject
