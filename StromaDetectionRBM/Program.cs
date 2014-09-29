@@ -24,25 +24,25 @@ namespace StromaDetectionRBM
 
         static void Main(string[] args)
         {
+            InOut io = new InOut(args);
 
-            String rbm0WeightsPath = "D:\\StromaSet\\weights\\RBM0_T1_769_500_139_0,04191353.weights";
-            String rbm1WeightsPath = "D:\\StromaSet\\weights\\RBM1_T1_500_75_375_0,07180008.weights";
-            String rbm2WeightsPath = "D:\\StromaSet\\weights\\RBM2_TOP_T3_76_40_16_0,1688143.weights";
+            RBM rbm0 = new RBM(io.getRBM0Weights(), false);
+            RBM rbm1 = new RBM(io.getRBM1Weights(), false);
+            RBM rbm2 = new RBM(io.getRBM2Weights(), false);
 
-            RBM rbm0 = new RBM(WeightsHelper.loadWeights(rbm0WeightsPath), false);
-            RBM rbm1 = new RBM(WeightsHelper.loadWeights(rbm1WeightsPath), false);
-            RBM rbm2 = new RBM(WeightsHelper.loadWeights(rbm2WeightsPath), false);
+            LinkedList<ParseObject> objects = io.getParseObjects();
 
-            Bitmap image = new Bitmap("D:\\StromaSet\\S-114-HE\\parts\\7500_27500.png");
+            foreach (ParseObject o in objects)
+            {
+                classifyImage(o, rbm0, rbm1, rbm2);
+            }
 
-            Boolean isStroma = classifyImage(image, rbm0, rbm1, rbm2);
-
-            Console.WriteLine("press key to exit: ");
-            Console.ReadKey();
+            io.writeOuput();
         }
 
-        private static Boolean classifyImage(Bitmap image, RBM rbm0, RBM rbm1, RBM rbm2)
+        private static void classifyImage(ParseObject o, RBM rbm0, RBM rbm1, RBM rbm2)
         {
+            Bitmap image = o.getImage();
             LinkedList<float[]> scaledPatches = new LinkedList<float[]>();
 
             int classWhite = 0;
@@ -95,7 +95,8 @@ namespace StromaDetectionRBM
             Console.WriteLine("Is Stroma: " + isStroma + ", " + stroma);
             Console.WriteLine("Stroma: " + classStroma + ", NotStroma: " + classNotStroma + ", White: " + classWhite);
 
-            return isStroma;
+            o.setStroma(isStroma);
+            o.setStromaPercentage(stroma);
         }
     }
 }

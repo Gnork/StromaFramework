@@ -28,6 +28,9 @@ namespace StromaDetectionRBM
             {
                 error("not enough arguments");
             }
+
+            objects = new LinkedList<ParseObject>();
+
             this.inputFile = args[0];
             this.outputFile = args[1];
 
@@ -48,7 +51,7 @@ namespace StromaDetectionRBM
                         String[] bananaSplit = banana.Split(';');
 
                         String id = bananaSplit[0];
-                        IStreamingImage image = Sdk.GetImage(@bananaSplit[1]);
+                        IStreamingImage image = Sdk.GetImage(bananaSplit[1]);
                         int upperLeftX = Int32.Parse(bananaSplit[2]);
                         int upperLeftY = Int32.Parse(bananaSplit[3]);
                         int lowerRightX = Int32.Parse(bananaSplit[4]);
@@ -88,13 +91,13 @@ namespace StromaDetectionRBM
                 rbm2WeightsFile = args[4];
                 
             }
-            else if (File.Exists(@exeRbm0Weigths) && File.Exists(@exeRbm1Weigths) && File.Exists(@exeRbm2Weigths))
+            else if (File.Exists(exeRbm0Weigths) && File.Exists(exeRbm1Weigths) && File.Exists(exeRbm2Weigths))
             {
                 rbm0WeightsFile = exeRbm0Weigths;
                 rbm1WeightsFile = exeRbm1Weigths;
                 rbm2WeightsFile = exeRbm2Weigths;
             }
-            else if (File.Exists(@"rbm0.weights") && File.Exists(@"rbm1.weights") && File.Exists(@"rbm2.weights"))
+            else if (File.Exists("rbm0.weights") && File.Exists("rbm1.weights") && File.Exists("rbm2.weights"))
             {
                 rbm0WeightsFile = "rbm0.weights";
                 rbm1WeightsFile = "rbm1.weights";
@@ -136,6 +139,21 @@ namespace StromaDetectionRBM
         {
             return this.objects;
         }
+
+        public Matrix<float> getRBM0Weights()
+        {
+            return rbm0Weights;
+        }
+
+        public Matrix<float> getRBM1Weights()
+        {
+            return rbm1Weights;
+        }
+
+        public Matrix<float> getRBM2Weights()
+        {
+            return rbm2Weights;
+        }
     }
 
     public class ParseObject
@@ -170,6 +188,11 @@ namespace StromaDetectionRBM
         {
             String isStroma = this.stroma ? "ja" : "nein";
             return id + ";" + isStroma + ";" + stromaPercentage;
+        }
+
+        public Bitmap getImage()
+        {
+            return this.image;
         }
     }
 }
