@@ -40,8 +40,6 @@ namespace StromaDetectionRBM
             {
                 using (var file = System.IO.File.OpenText(inputFile))
                 {
-                    String headerLine = file.ReadLine();
-
                     while (!file.EndOfStream)
                     {
                         String banana = file.ReadLine();
@@ -51,7 +49,16 @@ namespace StromaDetectionRBM
                         String[] bananaSplit = banana.Split(';');
 
                         String id = bananaSplit[0];
-                        IStreamingImage image = Sdk.GetImage(bananaSplit[1]);
+
+                        if (id.ToLower().Equals("id")) continue; //skip headline
+
+                        String filePath = bananaSplit[1];
+                        if (!System.IO.Path.IsPathRooted(filePath))
+                        {
+                            String dirName = System.IO.Path.GetDirectoryName(inputFile);
+                            filePath = dirName + "/" + filePath;
+                        }
+                        IStreamingImage image = Sdk.GetImage(filePath);
                         int upperLeftX = Int32.Parse(bananaSplit[2]);
                         int upperLeftY = Int32.Parse(bananaSplit[3]);
                         int lowerRightX = Int32.Parse(bananaSplit[4]);
@@ -132,6 +139,14 @@ namespace StromaDetectionRBM
             }
         }
 
+        public void exportImages()
+        {
+            foreach (ParseObject o in objects)
+            {
+                o.getImage().Save(this.outputFile + "." + o.getId() + ".png", ImageFormat.Png);
+            }
+        }
+
         public LinkedList<ParseObject> getParseObjects()
         {
             return this.objects;
@@ -158,7 +173,7 @@ namespace StromaDetectionRBM
         private String id;
         private Bitmap image;
         private Boolean stroma;
-        private float stromaPercentage;
+        private float stromaRatio;
 
         public ParseObject(String id, Bitmap image)
         {
@@ -171,20 +186,25 @@ namespace StromaDetectionRBM
             this.stroma = isStroma;
         }
 
-        public void setStromaPercentage(float stromaPercentage)
+        public void setStromaRatio(float stromaPercentage)
         {
-            this.stromaPercentage = stromaPercentage;
+            this.stromaRatio = stromaPercentage;
         }
 
         public static String headline()
         {
-            return "id;stroma;stromaPercentage";
+            return "id;stroma;stromaRatio";
         }
 
         public String toString()
         {
             String isStroma = this.stroma ? "ja" : "nein";
-            return id + ";" + isStroma + ";" + stromaPercentage;
+            return id + ";" + isStroma + ";" + stromaRatio;
+        }
+
+        public String getId()
+        {
+            return this.id;
         }
 
         public Bitmap getImage()

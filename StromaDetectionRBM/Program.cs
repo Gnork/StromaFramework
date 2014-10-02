@@ -19,8 +19,8 @@ namespace StromaDetectionRBM
 
         private static int scanIncrement = 32;
 
-        private static float classificationThreshold = 0.5f;
-        private static float whiteThreshold = 0.6f;
+        private static float classificationThreshold = 0.6f;
+        private static float whiteThreshold = 0.5f;
 
         static void Main(string[] args)
         {
@@ -65,28 +65,32 @@ namespace StromaDetectionRBM
                 }
             }
 
-            int columnCount = scaleWidth * scaleHeight * 3 + 1;
-            Matrix<float> batch = Matrix<float>.Build.Dense(scaledPatches.Count, columnCount);
+            if (scaledPatches.Count > 0) { 
 
-            int row = 0;
-            foreach (float[] scaledPatch in scaledPatches)
-            {
-                batch.SetRow(row++, scaledPatch);
-            }
+                int columnCount = scaleWidth * scaleHeight * 3 + 1;
+                Matrix<float> batch = Matrix<float>.Build.Dense(scaledPatches.Count, columnCount);
 
-            Matrix<float> rbm0Hidden = rbm0.getHidden(batch);
-            Matrix<float> rbm1Hidden = rbm1.getHidden(rbm0Hidden);
-            Matrix<float> rbm1HiddenWithEmptyLabels = MatrixHelper.addEmptyLabels(rbm1Hidden);
-            Matrix<float> rbm2Hidden = rbm2.getHidden(rbm1HiddenWithEmptyLabels);
+                int row = 0;
+                foreach (float[] scaledPatch in scaledPatches)
+                {
+                    batch.SetRow(row++, scaledPatch);
+                }
 
-            Matrix<float> rbm2Visible = rbm2.getVisible(rbm2Hidden);
+                Matrix<float> rbm0Hidden = rbm0.getHidden(batch);
+                Matrix<float> rbm1Hidden = rbm1.getHidden(rbm0Hidden);
+                Matrix<float> rbm1HiddenWithEmptyLabels = MatrixHelper.addEmptyLabels(rbm1Hidden);
+                Matrix<float> rbm2Hidden = rbm2.getHidden(rbm1HiddenWithEmptyLabels);
 
-            int lastColumn = rbm2Visible.ColumnCount - 1;
+                Matrix<float> rbm2Visible = rbm2.getVisible(rbm2Hidden);
 
-            for (int i = 0; i < rbm2Visible.RowCount; ++i)
-            {
-                if (rbm2Visible.At(i, lastColumn) > 0.5f) ++classStroma;
-                else ++classNotStroma;
+                int lastColumn = rbm2Visible.ColumnCount - 1;
+
+                for (int i = 0; i < rbm2Visible.RowCount; ++i)
+                {
+                    if (rbm2Visible.At(i, lastColumn) > 0.5f) ++classStroma;
+                    else ++classNotStroma;
+                }
+
             }
 
             float stroma = classStroma / (float)(classNotStroma + classWhite + classStroma);
@@ -96,7 +100,7 @@ namespace StromaDetectionRBM
             Console.WriteLine("Stroma: " + classStroma + ", NotStroma: " + classNotStroma + ", White: " + classWhite);
 
             o.setStroma(isStroma);
-            o.setStromaPercentage(stroma);
+            o.setStromaRatio(stroma);
         }
     }
 }
