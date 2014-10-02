@@ -15,7 +15,7 @@ StromaDetection.exe input.png output.csv [rbm0.weights rbm1.weights rbm2.weights
 
 This software classifies medical image data and decides whether the image is a Stroma image or not. An image is classified as Stroma, if it contains at least 60% Stroma.
 
-# program entry point
+### program entry point
 ```
 StromaDetectionRBM/Program.cs
 ```
