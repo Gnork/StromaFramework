@@ -24,7 +24,7 @@ id;stroma;stromaRatio
 
 ### classification
 
-This software classifies medical image data and decides whether the image is a Stroma image or not. An image is classified as Stroma, if it contains at least 60% Stroma.
+This software classifies medical image data and decides whether the image is a Stroma image or not. An image is classified as Stroma, if it contains more than 60% Stroma.
 
 ### program entry point
 ```
